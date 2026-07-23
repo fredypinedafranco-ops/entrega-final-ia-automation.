@@ -21,17 +21,17 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 
 ### 📸 Evidencias de Funcionamiento
 
-* **Camino Feliz (Aprobado VIP):**  
-  ![Camino Feliz](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/%F0%9F%9F%A2%20Camino%20Feliz%20(Lead%20Aprobado%20VIP...).png)
+* 🟢 **Camino Feliz (Lead Aprobado VIP):**  
+  [Ver Captura - Camino Feliz](https://github.com/fredypinedafranco-ops/entrega-final-ia-automation/blob/main/%F0%9F%9F%A2%20Camino%20Feliz%20(Lead%20Aprobado%20VIP...).png)
 
-* **Camino Descalificado (Presupuesto Bajo):**  
-  ![Camino Descalificado](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/%F0%9F%94%B4%20Camino%20Descalificado%20(Presup...).png)
+* 🔴 **Camino Descalificado (Presupuesto Bajo):**  
+  [Ver Captura - Camino Descalificado](https://github.com/fredypinedafranco-ops/entrega-final-ia-automation/blob/main/%F0%9F%94%B4%20Camino%20Descalificado%20(Presup...).png)
 
-* **Notificación HITL (Correo):**  
-  ![Correo HITL](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/Correo%20de%20Alerta%20(Notificaci%C3%B3n%20HI...).png)
+* 📩 **Notificación HITL (Correo de Alerta):**  
+  [Ver Captura - Correo HITL](https://github.com/fredypinedafranco-ops/entrega-final-ia-automation/blob/main/Correo%20de%20Alerta%20(Notificaci%C3%B3n%20HI...).png)
 
-* **Tablero de Registros:**  
-  ![Tablero](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/Tablero.PNG)
+* 📋 **Tablero de Registros:**  
+  [Ver Captura - Tablero](https://github.com/fredypinedafranco-ops/entrega-final-ia-automation/blob/main/Tablero.PNG)
 
 ---
 
@@ -39,3 +39,4 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 1. Importar el archivo `Entrega Final_ AI Automation plano.json` en n8n.
 2. Configurar las credenciales de **Google Gemini API**, **Airtable** y **SMTP**.
 3. Activar el flujo y enviar un HTTP POST al punto final del Webhook.
+
