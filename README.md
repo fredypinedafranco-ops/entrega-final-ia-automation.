@@ -22,16 +22,16 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 ### 📸 Evidencias de Funcionamiento
 
 * **Camino Feliz (Aprobado VIP):**  
-  ![Camino Feliz](./%F0%9F%9F%A2%20Camino%20Feliz%20(Lead%20Aprobado%20VIP).PNG)
+  ![Camino Feliz](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/%F0%9F%9F%A2%20Camino%20Feliz%20(Lead%20Aprobado%20VIP...).png)
 
 * **Camino Descalificado (Presupuesto Bajo):**  
-  ![Camino Descalificado](./%F0%9F%94%B4%20Camino%20Descalificado%20(Presupuesto%20Bajo).PNG)
+  ![Camino Descalificado](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/%F0%9F%94%B4%20Camino%20Descalificado%20(Presup...).png)
 
 * **Notificación HITL (Correo):**  
-  ![Correo HITL](./Correo%20de%20Alerta%20(Notificaci%C3%B3n%20HITL).PNG)
+  ![Correo HITL](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/Correo%20de%20Alerta%20(Notificaci%C3%B3n%20HI...).png)
 
 * **Tablero de Registros:**  
-  ![Tablero](./Tablero.PNG)
+  ![Tablero](https://raw.githubusercontent.com/fredypinedafranco-ops/entrega-final-ia-automation/main/Tablero.PNG)
 
 ---
 
