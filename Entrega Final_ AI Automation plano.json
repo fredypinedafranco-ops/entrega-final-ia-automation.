@@ -1,0 +1,1194 @@
+{
+  "name": "Entrega Final: Conexiones Forzadas",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nuevo-lead",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2528,
+        7664
+      ],
+      "id": "f8f32eab-a830-4bc7-a37f-19854b122d3c",
+      "name": "Webhook",
+      "webhookId": "340e20ba-cc0a-4300-aeac-fe6e7cf5ff66"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b00c5689-49ed-4b7a-8767-8c92e48da380",
+              "leftValue": "={{ $json.body.presupuesto }}",
+              "rightValue": 1000,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "ad1ff6b3-7938-4617-a619-dbac7bdcd38d",
+              "leftValue": "=={{ $json.body.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2320,
+        7664
+      ],
+      "id": "16196241-d0a1-4b36-9b63-57ac867f8cd2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -2112,
+        7776
+      ],
+      "id": "91205070-6672-4748-800a-6f589c4a8d62",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7Jy2bczcxNh4FDhq",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appfRc5OT3VCXktoT",
+          "mode": "list",
+          "cachedResultName": "Sistema Inteligente de Calificación y Nutrición de Leads VIP",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblcMEk9gwj7OpN7T",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT/tblcMEk9gwj7OpN7T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $node[\"Webhook\"].json.body.nombre }}\n",
+            "Email": "={{ $node[\"Webhook\"].json.body.email }}",
+            "Empresa / Necesidad": "={{ $node[\"Webhook\"].json.body.necesidad }}",
+            "Propuesta Generada": "=={{ $json.output.analisis }}",
+            "Categoría IA": "=Chatbots",
+            "Prioridad AI": "Alta",
+            "Presupuesto Estimado": 1500,
+            "Estado del Flujo": "En Revisión Humana"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Empresa / Necesidad",
+              "displayName": "Empresa / Necesidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Presupuesto Estimado",
+              "displayName": "Presupuesto Estimado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoría IA",
+              "displayName": "Categoría IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "VIP",
+                  "value": "VIP"
+                },
+                {
+                  "name": "Estándar",
+                  "value": "Estándar"
+                },
+                {
+                  "name": "Descalificado",
+                  "value": "Descalificado"
+                },
+                {
+                  "name": "Optimización de Procesos",
+                  "value": "Optimización de Procesos"
+                },
+                {
+                  "name": "Detección de Fraude",
+                  "value": "Detección de Fraude"
+                },
+                {
+                  "name": "Salud y Diagnóstico",
+                  "value": "Salud y Diagnóstico"
+                },
+                {
+                  "name": "Análisis Predictivo",
+                  "value": "Análisis Predictivo"
+                },
+                {
+                  "name": "Automatización de Procesos",
+                  "value": "Automatización de Procesos"
+                },
+                {
+                  "name": "Recomendadores",
+                  "value": "Recomendadores"
+                },
+                {
+                  "name": "Chatbots",
+                  "value": "Chatbots"
+                },
+                {
+                  "name": "Mantenimiento Predictivo",
+                  "value": "Mantenimiento Predictivo"
+                },
+                {
+                  "name": "Análisis de Sentimiento",
+                  "value": "Análisis de Sentimiento"
+                },
+                {
+                  "name": "Educación Inteligente",
+                  "value": "Educación Inteligente"
+                },
+                {
+                  "name": "Visión Computacional",
+                  "value": "Visión Computacional"
+                },
+                {
+                  "name": "Procesamiento de Lenguaje Natural",
+                  "value": "Procesamiento de Lenguaje Natural"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado del Flujo",
+              "displayName": "Estado del Flujo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En Revisión Humana",
+                  "value": "En Revisión Humana"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Nuevo",
+                  "value": "Nuevo"
+                },
+                {
+                  "name": "En negociación",
+                  "value": "En negociación"
+                },
+                {
+                  "name": "Contactado",
+                  "value": "Contactado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Propuesta Generada",
+              "displayName": "Propuesta Generada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Historial de Interacciones",
+              "displayName": "Historial de Interacciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de Creación",
+              "displayName": "Fecha de Creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Última Modificación",
+              "displayName": "Última Modificación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Origen del Lead",
+              "displayName": "Origen del Lead",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Web",
+                  "value": "Web"
+                },
+                {
+                  "name": "Referencia",
+                  "value": "Referencia"
+                },
+                {
+                  "name": "Evento",
+                  "value": "Evento"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad AI",
+              "displayName": "Prioridad AI",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -1760,
+        7568
+      ],
+      "id": "bda27e0d-5fb2-4789-97fb-684a8434bb8d",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "S4b8hybtDGTtS80c",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "fredypinedafranco@gmail.com",
+        "toEmail": "fredypinedafranco@gmail.com",
+        "subject": "⚠️ Alerta HITL: Nuevo Lead Clasificado por IA",
+        "html": "==<h3>Se ha procesado un nuevo lead de manera autónoma.</h3>\n<p><strong>Estado en Airtable:</strong> Esperando Aprobación Humana (HITL).</p>\n<p>Por favor, entra a tu dashboard para revisar la propuesta generada por la IA.</p>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1552,
+        7568
+      ],
+      "id": "28a68357-0293-4ee8-b96a-9e356c8a0259",
+      "name": "Send an Email",
+      "webhookId": "fe2a97e6-696e-475e-9c8a-968cabb5d1f2",
+      "credentials": {
+        "smtp": {
+          "id": "JWYTwOeCpQFCycPL",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Actúa como un Analista de Negocios Senior.\nClasifica el siguiente Lead según su necesidad y potencial:\nNombre: {{ $node[\"Webhook\"].json.body.nombre }}\nNecesidad: {{ $node[\"Webhook\"].json.body.necesidad }}\nPresupuesto: {{ $node[\"Webhook\"].json.body.presupuesto }}\n\nDevuelve estrictamente un objeto JSON con el siguiente formato, sin texto adicional ni bloques de código markdown:\n{\n  \"score\": (número del 1 al 100 asignado según viabilidad),\n  \"categoria\": (un texto corto que resuma el sector o solución requerida, ej: 'Chatbot', 'Automatización', 'CRM'),\n  \"analisis\": \"Breve resumen de 1 oración del caso\"\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2112,
+        7552
+      ],
+      "id": "d44dc9f3-1b1c-43e5-bb3f-f24936b7b9fd",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appfRc5OT3VCXktoT",
+          "mode": "list",
+          "cachedResultName": "Sistema Inteligente de Calificación y Nutrición de Leads VIP",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblcMEk9gwj7OpN7T",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT/tblcMEk9gwj7OpN7T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $node[\"Webhook\"].json.body.nombre }}\n",
+            "Email": "={{ $node[\"Webhook\"].json.body.email }}",
+            "Empresa / Necesidad": "={{ $node[\"Webhook\"].json.body.necesidad }}",
+            "Propuesta Generada": "=",
+            "Prioridad AI": "Baja",
+            "Presupuesto Estimado": 1500,
+            "Estado del Flujo": "Pendiente",
+            "Categoría IA": "Descalificado"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Empresa / Necesidad",
+              "displayName": "Empresa / Necesidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Presupuesto Estimado",
+              "displayName": "Presupuesto Estimado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoría IA",
+              "displayName": "Categoría IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "VIP",
+                  "value": "VIP"
+                },
+                {
+                  "name": "Estándar",
+                  "value": "Estándar"
+                },
+                {
+                  "name": "Descalificado",
+                  "value": "Descalificado"
+                },
+                {
+                  "name": "Optimización de Procesos",
+                  "value": "Optimización de Procesos"
+                },
+                {
+                  "name": "Detección de Fraude",
+                  "value": "Detección de Fraude"
+                },
+                {
+                  "name": "Salud y Diagnóstico",
+                  "value": "Salud y Diagnóstico"
+                },
+                {
+                  "name": "Análisis Predictivo",
+                  "value": "Análisis Predictivo"
+                },
+                {
+                  "name": "Automatización de Procesos",
+                  "value": "Automatización de Procesos"
+                },
+                {
+                  "name": "Recomendadores",
+                  "value": "Recomendadores"
+                },
+                {
+                  "name": "Chatbots",
+                  "value": "Chatbots"
+                },
+                {
+                  "name": "Mantenimiento Predictivo",
+                  "value": "Mantenimiento Predictivo"
+                },
+                {
+                  "name": "Análisis de Sentimiento",
+                  "value": "Análisis de Sentimiento"
+                },
+                {
+                  "name": "Educación Inteligente",
+                  "value": "Educación Inteligente"
+                },
+                {
+                  "name": "Visión Computacional",
+                  "value": "Visión Computacional"
+                },
+                {
+                  "name": "Procesamiento de Lenguaje Natural",
+                  "value": "Procesamiento de Lenguaje Natural"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado del Flujo",
+              "displayName": "Estado del Flujo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En Revisión Humana",
+                  "value": "En Revisión Humana"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Nuevo",
+                  "value": "Nuevo"
+                },
+                {
+                  "name": "En negociación",
+                  "value": "En negociación"
+                },
+                {
+                  "name": "Contactado",
+                  "value": "Contactado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Propuesta Generada",
+              "displayName": "Propuesta Generada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Historial de Interacciones",
+              "displayName": "Historial de Interacciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de Creación",
+              "displayName": "Fecha de Creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Última Modificación",
+              "displayName": "Última Modificación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Origen del Lead",
+              "displayName": "Origen del Lead",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Web",
+                  "value": "Web"
+                },
+                {
+                  "name": "Referencia",
+                  "value": "Referencia"
+                },
+                {
+                  "name": "Evento",
+                  "value": "Evento"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad AI",
+              "displayName": "Prioridad AI",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -2288,
+        7872
+      ],
+      "id": "4d44fffb-064b-4fac-b2bc-72192686567c",
+      "name": "Create a record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "S4b8hybtDGTtS80c",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        8032
+      ],
+      "id": "616800c2-ded5-4ffb-b485-e7ca8b54dfc3",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appfRc5OT3VCXktoT",
+          "mode": "list",
+          "cachedResultName": "Sistema Inteligente de Calificación y Nutrición de Leads VIP",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblcMEk9gwj7OpN7T",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appfRc5OT3VCXktoT/tblcMEk9gwj7OpN7T"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $node[\"Webhook\"].json.body.nombre }}\n",
+            "Email": "={{ $node[\"Webhook\"].json.body.email }}",
+            "Empresa / Necesidad": "={{ $node[\"Webhook\"].json.body.necesidad }}",
+            "Propuesta Generada": "=Fallo en ejecución por error en API o sistema.",
+            "Prioridad AI": "Baja",
+            "Presupuesto Estimado": 1500,
+            "Estado del Flujo": "Error",
+            "Categoría IA": "Descalificado"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Empresa / Necesidad",
+              "displayName": "Empresa / Necesidad",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Presupuesto Estimado",
+              "displayName": "Presupuesto Estimado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Categoría IA",
+              "displayName": "Categoría IA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "VIP",
+                  "value": "VIP"
+                },
+                {
+                  "name": "Estándar",
+                  "value": "Estándar"
+                },
+                {
+                  "name": "Descalificado",
+                  "value": "Descalificado"
+                },
+                {
+                  "name": "Optimización de Procesos",
+                  "value": "Optimización de Procesos"
+                },
+                {
+                  "name": "Detección de Fraude",
+                  "value": "Detección de Fraude"
+                },
+                {
+                  "name": "Salud y Diagnóstico",
+                  "value": "Salud y Diagnóstico"
+                },
+                {
+                  "name": "Análisis Predictivo",
+                  "value": "Análisis Predictivo"
+                },
+                {
+                  "name": "Automatización de Procesos",
+                  "value": "Automatización de Procesos"
+                },
+                {
+                  "name": "Recomendadores",
+                  "value": "Recomendadores"
+                },
+                {
+                  "name": "Chatbots",
+                  "value": "Chatbots"
+                },
+                {
+                  "name": "Mantenimiento Predictivo",
+                  "value": "Mantenimiento Predictivo"
+                },
+                {
+                  "name": "Análisis de Sentimiento",
+                  "value": "Análisis de Sentimiento"
+                },
+                {
+                  "name": "Educación Inteligente",
+                  "value": "Educación Inteligente"
+                },
+                {
+                  "name": "Visión Computacional",
+                  "value": "Visión Computacional"
+                },
+                {
+                  "name": "Procesamiento de Lenguaje Natural",
+                  "value": "Procesamiento de Lenguaje Natural"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado del Flujo",
+              "displayName": "Estado del Flujo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pendiente",
+                  "value": "Pendiente"
+                },
+                {
+                  "name": "En Revisión Humana",
+                  "value": "En Revisión Humana"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Enviado",
+                  "value": "Enviado"
+                },
+                {
+                  "name": "Error",
+                  "value": "Error"
+                },
+                {
+                  "name": "Nuevo",
+                  "value": "Nuevo"
+                },
+                {
+                  "name": "En negociación",
+                  "value": "En negociación"
+                },
+                {
+                  "name": "Contactado",
+                  "value": "Contactado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Propuesta Generada",
+              "displayName": "Propuesta Generada",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Historial de Interacciones",
+              "displayName": "Historial de Interacciones",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Fecha de Creación",
+              "displayName": "Fecha de Creación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Última Modificación",
+              "displayName": "Última Modificación",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Origen del Lead",
+              "displayName": "Origen del Lead",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Web",
+                  "value": "Web"
+                },
+                {
+                  "name": "Referencia",
+                  "value": "Referencia"
+                },
+                {
+                  "name": "Evento",
+                  "value": "Evento"
+                },
+                {
+                  "name": "Otro",
+                  "value": "Otro"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Prioridad AI",
+              "displayName": "Prioridad AI",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Alta",
+                  "value": "Alta"
+                },
+                {
+                  "name": "Media",
+                  "value": "Media"
+                },
+                {
+                  "name": "Baja",
+                  "value": "Baja"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -1344,
+        8000
+      ],
+      "id": "d68d1e93-ef44-49e0-98b2-97c602234a2f",
+      "name": "Create a record2",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "S4b8hybtDGTtS80c",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create a record2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c7f30d98-8574-4b2d-88e9-b9897f8301f4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8b5ed252e534c9f1a38ca201d781cd766c0e250550246210708a3a37871eacd7"
+  },
+  "nodeGroups": [],
+  "id": "wbnUGwKsdMAhL9hO",
+  "tags": []
+}
