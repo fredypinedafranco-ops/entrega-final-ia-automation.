@@ -6,11 +6,11 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 ---
 
 ## 🛠️ Malla de Integraciones
-* **Trigger:** Webhook (POST) para recepción de datos.
-* **Validación:** Nodo IF para filtrado por presupuesto ($json.body.presupuesto >= 1000) y email no vacío.
+* **Activador:** Webhook (POST) para recepción de datos.
+* **Validación:** Nodo IF para filtrado por presupuesto (`$json.body.presupuesto >= 1000`) y email no vacío.
 * **IA / LLM:** Agent AI con Google Gemini Chat Model para análisis de la necesidad.
 * **Base de Datos:** Airtable (Gestión de estados: *En Revisión Humana*, *Descalificado*, *Error*).
-* **Notificaciones:** SMTP Email Send para alertas HITL.
+* **Notificaciones:** Envío de correo electrónico SMTP para alertas HITL.
 * **Resiliencia:** Error Trigger para captura global de fallos.
 
 ---
@@ -22,13 +22,13 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 ### 📸 Evidencias de Funcionamiento
 
 * **Camino Feliz (Aprobado VIP):**  
-  ![Camino Feliz](./🟢%20Camino%20Feliz%20(Lead%20Aprobado%20VIP).PNG)
+  ![Camino Feliz](./%F0%9F%9F%A2%20Camino%20Feliz%20(Lead%20Aprobado%20VIP).PNG)
 
 * **Camino Descalificado (Presupuesto Bajo):**  
-  ![Camino Descalificado](./🔴%20Camino%20Descalificado%20(Presupuesto%20Bajo).PNG)
+  ![Camino Descalificado](./%F0%9F%94%B4%20Camino%20Descalificado%20(Presupuesto%20Bajo).PNG)
 
 * **Notificación HITL (Correo):**  
-  ![Correo HITL](./Correo%20de%20Alerta%20(Notificación%20HITL).PNG)
+  ![Correo HITL](./Correo%20de%20Alerta%20(Notificaci%C3%B3n%20HITL).PNG)
 
 * **Tablero de Registros:**  
   ![Tablero](./Tablero.PNG)
@@ -38,4 +38,4 @@ Este proyecto implementa un flujo de trabajo automatizado en **n8n** que recibe 
 ## 🚀 Instrucciones de Uso
 1. Importar el archivo `Entrega Final_ AI Automation plano.json` en n8n.
 2. Configurar las credenciales de **Google Gemini API**, **Airtable** y **SMTP**.
-3. Activar el flujo y enviar un HTTP POST al endpoint del Webhook.
+3. Activar el flujo y enviar un HTTP POST al punto final del Webhook.
